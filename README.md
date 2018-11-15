@@ -9,7 +9,7 @@ I create some variant for calculate the speed of this solution
 
 For test I generate from the 150 sample of possible values of
  
-  7xy+5x+13y=GenValue   
+  **7xy+5x+13y=GenValue**   
  
             Hs = new HyperSolver { B = 7, D = 5, E = 13 };
             CkVal = new List<Gen>();
@@ -35,3 +35,11 @@ Testing is the same for each
                 Trace.WriteLine($"{new TimeSpan(watch.ElapsedTicks)}\t{g.v}\t\t[{g.x}, {g.y}] [{res.x}, {res.y}]\t{Hs.Eval(res.x, res.y) == g.v}");
             }
         }
+
+On visual studio **Test Explorer** panel you can check the results
+
+![Visual studio Test Explorer](https://raw.githubusercontent.com/rag70/HyperSolver/master/img/TestResults.png)
+
+For verify if All result are fine, go to the Summary....
+
+![Summary Output](https://raw.githubusercontent.com/rag70/HyperSolver/master/img/CheckIfOk.png)
