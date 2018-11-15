@@ -21,7 +21,8 @@ namespace lz.math.solver
         public ulong B;
         public ulong D;
         public ulong E;
-        
+
+        /* This solve check if the solution is on the center, and from there start to walk up and down for found the solution */
         public Result EquSolverV1(ulong f)
         {
             Result res = new Result { x = 0, y = 0 };
@@ -155,7 +156,7 @@ namespace lz.math.solver
             return res;
         }
 
-        /** This solver goes for all the Y intil found a X that mach the value */
+        /* This solver goes for all the Y intil found a X that mach the value */
         public Result EquSolverV3(ulong f)
         {
             Result res = new Result { x = 0, y = 0 };
@@ -195,8 +196,9 @@ namespace lz.math.solver
             return res;
         }
 
-        // https://www.alpertron.com.ar/METHODS.HTM#SHyperb
-        // I make a litle change for not negative solution
+        /* I make a litle change for not negative solution, the idea comming from
+         https://www.alpertron.com.ar/METHODS.HTM#SHyperb
+         */
         public Result EquSolverV5(ulong f)
         {
             Result res = new Result { x = 0, y = 0 };
@@ -227,8 +229,11 @@ namespace lz.math.solver
             return res;
         }
 
+        /* A simple c% way to get posibles prime number using the Wheel 
+         https://www.codeproject.com/Articles/31085/Prime-Number-Determination-Using-Wheel-Factorizati 
+         */
         private static ulong[] aV30 = { 7, 11, 13, 17, 19, 23, 29, 31 };
-        private static ulong[] fVal = { 1, 2, 3, 5 };
+        private static ulong[] fVal = { 1, 2, 3, 5 }; // I add 1 because is need for this solver
         public IEnumerable<ulong> PosiblePrimes()
         {
             foreach (ulong p in fVal)
@@ -246,6 +251,7 @@ namespace lz.math.solver
             }
         }
 
+        // for EquSolverV5
         private bool SolByFact(ulong r, ulong t, ref Result res)
         {
             if ((t - E) % B == 0 && (r / t - D) % B == 0)
@@ -255,6 +261,7 @@ namespace lz.math.solver
             return false;
         }
 
+        // for EquSolverV5
         private bool AddXY(ulong x, ulong y, ref Result res)
         {
             if ((x >= 0) && (y >= 0))
@@ -266,25 +273,22 @@ namespace lz.math.solver
             return false;
         }
 
-            /** Eval
-             * Giving a X and Y return a F value
-             */
-            public ulong Eval(ulong x, ulong y)
-        {
-            return B * x * y + D * x + E * y;
-        }
+        /* 
+         * @Eval
+            Giving a X and Y return a F value
+        */
+        public ulong Eval(ulong x, ulong y) => B * x * y + D * x + E * y;
 
-        // 
-        public ulong XNext(ulong x)
-        {
-            return B * x + E;
-        }
+        /* Depending of the position of X the distance to the next X
+         */
+        public ulong XNext(ulong x) => B * x + E;
 
-        public ulong YNext(ulong y)
-        {
-            return B * y + D;
-        }
+        /* Depending of the position of Y the distance to the next Y 
+         */
+        public ulong YNext(ulong y) => B * y + D;
 
+        /* Giving an Y value, check if the result is on that column 
+         */
         ulong SolveX(ulong e, ulong y)
         {
             ulong num = e - E * y;
@@ -296,6 +300,8 @@ namespace lz.math.solver
             return 0;
         }
 
+        /* Giving an X value, check if the result is on that row
+         */
         ulong SolveY(ulong e, ulong x)
         {
             ulong num = e - D * x;
@@ -307,6 +313,8 @@ namespace lz.math.solver
             return 0;
         }
 
+        /* Assuming that x = and what possible value would have
+         */
         public double DiagonalSolver(ulong f) => (Math.Sqrt(B) * Math.Sqrt(f + B) - B) / B;
     }
 
