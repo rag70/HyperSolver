@@ -156,7 +156,7 @@ namespace lz.math.solver
             return res;
         }
 
-        /* This solver goes for all the Y intil found a X that mach the value */
+        /* This solver goes for all the Y until found a X that mach the value */
         public Result EquSolverV3(ulong f)
         {
             Result res = new Result { x = 0, y = 0 };
